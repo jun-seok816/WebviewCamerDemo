@@ -225,7 +225,7 @@ private void setUpload() {
 - imageView.setImageBitmap()  
   - imageView의 내용으로 Bitmap을 설정합니다.
 - Bitmap  
-  - 
+  - 이미지를 구성하는 단위
 
 
 
