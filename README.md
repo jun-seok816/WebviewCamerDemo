@@ -1,3 +1,5 @@
+# GalleryActivity
+
 # setUpload()메소드
 
 ## Description 
