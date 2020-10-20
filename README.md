@@ -229,8 +229,51 @@ private void setUpload() {
 - Bitmap  
   - 이미지를 구성하는 단위
 
+# GalleryRecyclerViewAdapter 클래스
 
+# GalleryRecyclerViewAdapter 메소드
 
+## Description 
+
+- GalleryRecyclerViewAdapter 객체의 view를 생성해줍니다.
+ 
+## Parameter
+
+- Context context
+  - 객체의 현재 상태를 나타내주는 역할을 함
+  - https://velog.io/@allocproc/android-Context%EB%9E%80
+    
+## Return 
+
+ - type : void
+ 
+ - value : 없음
+
+## Dependence function
+
+- LayoutInflater
+  - XML 파일을 해당 View 객체 로 인스턴스화 합니다. 
+
+- LayoutInflater.from(contxt)
+  - 지정된 context에서 LayoutInflater를 가져옵니다.
+  - https://developer.android.com/reference/android/view/LayoutInflater#from(android.content.Context)
   
+## Constructor
+
+- new ArrayList<Uri>
+  - ArrayList는 List 인터페이스를 상속받은 클래스로 크기가 가변적으로 변하는 리스트입니다.
+  - Uri타입 데이터면 추가 수정 삭제 할 수 있습니다.
+  - https://developer.android.com/reference/kotlin/java/util/ArrayList
+ 
+## Sorce code
+
+```
+public GalleryRecyclerViewAdapter(Context context) {
+        this.context = context;
+        layoutInflater = LayoutInflater.from(context);
+        itemsUri = new ArrayList<Uri>();
+        galleryActivity = (GalleryActivity)context;
+    }
+```
   
 
