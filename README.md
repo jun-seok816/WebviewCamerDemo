@@ -219,7 +219,13 @@ private void setUpload() {
 ## Dependence function
 
 - item.getItemUri()
-
+  - 아래에 설명 참조
+- Util.convertImageFileToBitmap() 
+  - Util클래스설명 참조
+- imageView.setImageBitmap()  
+  - imageView의 내용으로 Bitmap을 설정합니다.
+- Bitmap  
+  - 
 
 
 
