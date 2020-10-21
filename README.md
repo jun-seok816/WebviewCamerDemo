@@ -1046,7 +1046,7 @@ mWebView.loadUrl("file:///android_asset/index.html");
 
 # WebVCamBridgeInterface 클래스
 
-## Source code
+## Javascript Source code
 
 ```
 @JavascriptInterface
@@ -1063,11 +1063,137 @@ mWebView.loadUrl("file:///android_asset/index.html");
         }
 ```
 
+# Util 클래스
+
+# convertImageFileToBitmap()메소드
+
+## description 
+
+- Bitmap의 Option을 설정합니다.
+
+## Parameter
+
+- String filePath
+
+- int nWidth
+
+- int nHeight
+    
+## Return 
+
+ - type : String
+ 
+ - value : 없음
+ 
+## Dependence function
+
+- BitmapFactory.Options()
+  - 기본 Options 객체를 생성합니다. 변경하지 않으면 null이 전달 된 것처럼 디코더에서 동일한 결과를 제공합니다.
+  - https://developer.android.com/reference/android/graphics/BitmapFactory.Options
   
+- options.inJustDecodeBounds   
+  - false로 설정 되면 크기 조정이 적용된 후 출력 비트 맵의
+    너비가됩니다.
+  - true면 스케일링을 고려하지 않고 입력 이미지의 너비가됩니다.    
+  - https://developer.android.com/reference/android/graphics/BitmapFactory.Options#outWidth
+
+- options.inPurgeable
+  - 비트 맵이 픽셀을 할당하여 시스템이 메모리를 회수해야하는 경우 제거 할 수 있도록 합니다
+  - https://developer.android.com/reference/android/graphics/BitmapFactory.Options#inPurgeable
+
+- options.inScaled
+  - 비트 맵이 그려질 대상의 픽셀 밀도와 맞춰지게 합니다.
+  - https://developer.android.com/reference/android/graphics/BitmapFactory.Options#inScaled
+
+- options.inPreferredConfig 
+  - 디코더는이 내부 구성으로 디코딩을 시도합니다.
+  - https://developer.android.com/reference/android/graphics/BitmapFactory.Options#inPreferredConfig
   
+- options.inSampleSize
+  - 디코더에 원본 이미지를 서브 샘플링하도록 요청하여 메모리를 절약하기 위해 더 작은 이미지를 반환합니다.
+  - https://developer.android.com/reference/android/graphics/BitmapFactory.Options#inSampleSize
+  
+ 
+## Source code
 
+```
+public static Bitmap convertImageFileToBitmap(String filePath, int nWidth, int nHeight) {
 
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        options.inPurgeable = true;
+        options.inScaled = true;
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        BitmapFactory.decodeFile(filePath, options);
 
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, nWidth, nHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(filePath, options);
+
+    }
+```
+
+# calculateInSampleSize
+
+## description 
+
+- 이미지의 원시 높이 및 너비를 구함
+
+## Parameter
+
+- BitmapFactory.Options options
+- int reqWidth
+- int reqHeight
+    
+## Return 
+
+ - type : String
+ 
+ - value : 없음
+ 
+ 
+## Dependence function
+
+- options.outHeight
+  - 비트 맵의 결과 높이입니다.
+- options.outWidth
+  - 비트 맵의 결과 넓이입니다.
+  - https://developer.android.com/reference/android/graphics/BitmapFactory.Options#outHeight
+  
+- Math.round()
+  - 수의 소수점 첫번째 자리를 반올림하여 정수로 리턴시켜줍니다.
+  - https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Math/round
+## Source code
+
+```
+public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            // Calculate ratios of height and width to requested height and
+            // width
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+
+            // Choose the smallest ratio as inSampleSize value, this will
+            // guarantee
+            // a final image with both dimensions larger than or equal to the
+            // requested height and width.
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+
+        }
+
+        return inSampleSize;
+    }
+```
 
 
 
