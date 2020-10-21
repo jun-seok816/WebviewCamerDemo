@@ -316,6 +316,7 @@ public GalleryRecyclerViewAdapter(Context context) {
 
 ## Description 
 
+- 리스트에서 데이터를 참조하여 받아온 이미지의 위치설정
 
 ## Parameter
 
@@ -325,13 +326,378 @@ public GalleryRecyclerViewAdapter(Context context) {
   - 이미지의 위치
   
 ## Retrun
- - type : void
+- type : void
  
- - value : 없음
+- value : 없음
  
 ## Dependence function
 
 - holder.setItemUri
+  - 아래의 설명참조
 
-
+- holder.setImageView
+  - 받은 데이터를 참조하여 이미지를 지정한 위치에 위치시킨다.
   
+## Source code
+
+```
+@Override
+    public void onBindViewHolder(GalleryRecyclerViewAdapter.ItemHolder holder, int position) {
+        Uri targetUri = itemsUri.get(position);
+        holder.setItemUri(targetUri.getPath());
+
+        if (targetUri != null) {
+
+            try {
+                holder.setImageView(Util.convertImageFileToBitmap(targetUri.getPath(), 75, 85));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+```
+
+# getItemCount 메소드
+
+## Description 
+
+- 어댑터가 보유한 데이터의 총 항목 수를 리턴합니다
+  - https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView.Adapter#getItemCount()
+  
+## Parameter
+
+- 없음
+
+## Retrun
+- type : void
+ 
+- value : 없음
+ 
+## Dependence function
+
+- itemUri.size()
+  - 리스트의 컬렉션프레임워크 타입의 길이를 알려줍니다.
+  - https://developer.android.com/reference/android/util/Size
+  - https://mine-it-record.tistory.com/126
+
+- 컬렉션프레임워크란
+  - 다수의 데이터를 쉽고 효과적으로 처리할 수 있는 표준화된 방법
+  
+## source code
+
+```
+ @Override
+    public int getItemCount() {
+        return itemsUri.size();
+    }
+```
+  
+# setOnItemClickListener
+
+## Description 
+
+- AdapterView의 항목을 클릭했을 때 호출되는 콜백 메소드
+  - https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView.Adapter#getItemCount()
+  
+## Parameter
+
+- OnItemClickListener listener
+  - The callback that will be invoked. This value may be null.
+  - https://developer.android.com/reference/android/widget/AdapterView#setOnItemClickListener(android.widget.AdapterView.OnItemClickListener)
+  
+## Retrun
+- type : void
+ 
+- value : 없음
+ 
+## Source code
+
+```
+public void setOnItemClickListener(OnItemClickListener listener) {
+        onItemClickListener = listener;
+    }
+```
+
+# getOnItemClickListener()메소드
+
+## Description 
+
+- AdapterView의 항목과 함께 호출 될 콜백이 클릭되었거나 콜백이 설정되지 않은 경우 null입니다.
+  - 콜백이 호출할때 발생하는 값을 리턴합니다.
+  - https://developer.android.com/reference/android/widget/AdapterView#getOnItemClickListener()
+  
+## Parameter
+
+- 없음
+
+## Retrun
+
+- type : void
+ 
+- value : 없음
+ 
+## Source code
+
+```
+    public OnItemClickListener getOnItemClickListener() {
+        return onItemClickListener;
+    }
+```
+
+# remove()메소드
+
+## Description 
+
+- 리스트의 데이터를 삭제합니다.
+
+## Parameter
+
+- int selectedIndex
+  - 제거할 요소의 인덱스
+
+## Retrun
+
+- type : void
+ 
+- value : 없음
+
+## Dependence function
+
+- itemsUri.remove()
+  - 지정된 위치의 요소를 제거합니다.
+  - https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView.Adapter#notifyItemRemoved(int)
+
+- notifyItemRemoved()
+  - 사용자에게 이전에 위치한 항목position이 리스트에서 제거되었음을 알립니다.
+  - https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView.Adapter#notifyItemRemoved(int)
+  
+-  galleryActivity.showNoImagesText()
+   - 리스트가 없으면 사용자에게 보여줄 이미지가 없다고 알립니다
+ 
+## Source code
+
+```
+ public void remove(int selectedIndex) {
+        itemsUri.remove(selectedIndex);
+        notifyItemRemoved(selectedIndex);
+
+        if(itemsUri.size() == 0){
+            galleryActivity.showNoImagesText();
+        }
+    }
+```
+
+# OnItemClickListener 인터페이스
+
+## Description 
+
+- onItemClick메소드를 위한 OnItemClickListener인터페이스이다.
+
+## Source code
+
+```
+  public interface OnItemClickListener {
+        public void onItemClick(ItemHolder item, int position);
+    }
+```
+
+# add()메소드
+
+## Description 
+
+- 목록의 지정된 위치에 지정된 요소를 삽입합니다.
+  - https://developer.android.com/reference/java/util/ArrayList#add(int,%20E)
+  
+## Parameter
+
+- int location
+  - 지정된 요소가 삽입 될 인덱스
+  - https://developer.android.com/reference/java/util/ArrayList#add(int,%20E)
+
+- Uri uri
+  - 삽입 할 요소
+  - https://developer.android.com/reference/java/util/ArrayList#add(int,%20E)
+
+## Retrun
+
+- type : void
+ 
+- value : 없음
+
+## Dependence function
+
+- notifyItemInserted()
+  - 사용자에게 항목 position 이 새로 삽입되었음을 알립니다
+  - https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView.Adapter#notifyItemInserted(int)
+  - position: 데이터 리스트에서 새로 삽입된 항목의 위치
+  
+
+## Source code
+
+```
+public void add(int location, Uri iUri) {
+        itemsUri.add(location, iUri);
+        notifyItemInserted(location);
+    }
+```
+
+# ItemHolder클래스 
+
+# ItemHolder() 메소드
+
+## Description 
+
+- 변수 imageView, cardView, parent를 초기화시킨다
+
+## Parameter
+  
+- CardView cardView
+  - 둥근 모서리 배경과 그림자가있는 FrameLayout입니다.
+  - https://developer.android.com/reference/androidx/cardview/widget/CardView?hl=en
+
+- GalleryRecyclerViewAdapter parent
+
+## Retrun
+
+- type : void
+ 
+- value : 없음
+
+## Dependence function
+
+- itemView.setOnClickListener(this);
+  - 뷰항목이 클릭되었을때 onClick 메소드를 콜백한다.
+  - https://developer.android.com/reference/android/view/View#setOnClickListener(android.view.View.OnClickListener)
+  
+## Source code
+
+```
+  public ItemHolder(CardView cardView, GalleryRecyclerViewAdapter parent) {
+            super(cardView);
+            itemView.setOnClickListener(this);
+            this.cardView = cardView;
+            this.parent = parent;
+            imageView = (ImageView) cardView.findViewById(R.id.item_image);
+        }
+```
+
+# setItemUri()메소드
+
+## Description 
+
+- 리스트 itemuri 배열을 String 문자열 형태로 초기화 시킵니다.
+
+## Parameter
+  
+- String itemUri
+
+## Retrun
+
+- type : void
+ 
+- value : 없음
+
+## Source code
+
+```
+ public void setItemUri(String itemUri){
+            this.itemUri = itemUri;
+        }
+```
+
+# getItemUri()메소드
+
+## Description 
+
+- 문자열로 변환한 itemUri배열 리턴
+
+## Parameter
+  
+- 없음
+
+## Retrun
+
+- type : String
+ 
+- value : String itemUri
+
+## Source code
+
+```
+public String getItemUri(){
+            return itemUri;
+        }
+```
+
+# setImageView()메소드
+
+## Description
+
+- 이미지뷰의 내용으로 비트맵을 설정함
+
+## Parameter
+  
+- 없음
+
+## Retrun
+
+- type : void
+ 
+- value : 
+
+## Dependence function
+
+- imageView.setImageBitmap()
+  - ImageView의 내용으로 Bitmap을 설정합니다.
+  - https://developer.android.com/reference/android/widget/ImageView#setImageBitmap(android.graphics.Bitmap)
+  
+## Source code
+
+```
+public void setImageView(Bitmap bitmap){
+            imageView.setImageBitmap(bitmap);
+        }
+```
+
+# onClick메소드
+
+## Description
+
+- 뷰항목이 클릭되면 호출됩니다.
+
+## Parameter
+  
+- View v
+  - 뷰클래스의 변수
+
+## Retrun
+
+- type : void
+ 
+- value : 없음
+
+## Dependence function
+
+- parent.getOnItemClickListener()
+  - AdapterView의 항목과 함께 호출 될 콜백이 클릭되었거나 콜백이 설정되지 않은 경우 null값을 호출함
+  - https://developer.android.com/reference/android/widget/AdapterView#getOnItemClickListener()
+  
+- listener.onItemClick()
+  - AdapterView의 항목을 클릭했을 때 호출되는 콜백 메서드
+  - 선택한 항목과 관련된 데이터에 엑세스해야하는경우 getItemAtPosition (position)을 호출 할 수 있습니다.
+  - https://developer.android.com/reference/android/widget/AdapterView.OnItemClickListener#public-methods_1
+  
+## Source code
+
+```
+  @Override
+        public void onClick(View v) {
+            final OnItemClickListener listener = parent.getOnItemClickListener();
+            if(listener != null){
+                listener.onItemClick(this, getLayoutPosition());
+                //or use
+                //listener.onItemClick(this, getAdapterPosition());
+            }
+```
+
+
