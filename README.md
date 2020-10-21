@@ -131,11 +131,11 @@ private void setUpload() {
     }
 ```
 
-# setDelete()메소드
+# prepareGallery()메소드
 
 ## Description 
 
- - 삭제할 사진을 설정합니다.
+ - 데이터항목들을 지정한 결로명의 파일로 저장합니다.
 
 ## Parameter
 
@@ -171,6 +171,34 @@ private void setUpload() {
   - 데이터 항목들의 엑세스를 제공합니다.
   - http://blog.naver.com/PostView.nhn?blogId=kookh1&logNo=120170877682
   - https://developer.android.com/reference/android/widget/Adapter
+  
+  
+## Source code
+
+```
+private void prepareGallery() {
+
+        File directory = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                + "/WebviewCameraDemo/");
+        String targetPath = directory.getAbsolutePath();
+
+//        Toast.makeText(getApplicationContext(), targetPath, Toast.LENGTH_LONG).show();
+        File targetDirector = new File(targetPath);
+
+        File[] files = targetDirector.listFiles();
+
+
+        for (File file : files) {
+            Uri uri = Uri.fromFile(file);
+            recyclerViewAdapter.add(
+                    recyclerViewAdapter.getItemCount(),
+                    uri);
+        }
+        if (files.length == 0) {
+            showNoImagesText();
+        }
+    }
+```
 
 
 # showNoImagesText()메소드
@@ -195,6 +223,16 @@ private void setUpload() {
   - findViewById(R.id.txt_no_images_found)의 가시성 상태를 VISIBLE로 합니다.
 - findViewById(R.id.image_preview).setVisibility(View.GONE);
   - findViewById(R.id.image_preview)의 가시성 상태를 GONE로 합니다.
+  
+  
+## Source code
+
+```
+public void showNoImagesText() {
+        findViewById(R.id.txt_no_images_found).setVisibility(View.VISIBLE);
+        findViewById(R.id.image_preview).setVisibility(View.GONE);
+    }
+```
   
 # onItemClick()메소드
 
@@ -228,6 +266,26 @@ private void setUpload() {
   - imageView의 내용으로 Bitmap을 설정합니다.
 - Bitmap  
   - 이미지를 구성하는 단위
+  
+## Source code
+
+```
+ @Override
+    public void onItemClick(GalleryRecyclerViewAdapter.ItemHolder item, int position) {
+//        Toast.makeText(GalleryActivity.this, item.getItemUri(), Toast.LENGTH_SHORT).show();
+        selectedImage = item.getItemUri();
+        selectedIndex = position;
+
+        ImageView imageView = (ImageView) findViewById(R.id.image_preview);
+        File imgFile = new File(item.getItemUri());
+
+        if (imgFile.exists()) {
+            Bitmap myBitmap = Util.convertImageFileToBitmap(item.getItemUri(), 200, 200);
+            imageView.setImageBitmap(myBitmap);
+        }
+    }
+}
+```
 
 # GalleryRecyclerViewAdapter 클래스
 
