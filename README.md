@@ -700,4 +700,271 @@ public void setImageView(Bitmap bitmap){
             }
 ```
 
+# LandingActivity 클래스
+
+## requsetPermissions()메소드
+
+## Description 
+
+ - Camera와 내부저장소의 권한을 가져옵니다.
+
+## Parameter
+
+- 없음
+    
+## Return 
+
+ - type : void
+ 
+ - value : 없음
+
+## Dependence function
+
+- ActivityCompat.requestPermissions() 
+  - 퍼미션을 요청합니다
+  - 파라미터는 요청 코드를 넣습니다.
+  - https://developer.android.com/training/permissions/requesting?hl=ko
+- ContextCompat.checkSelfPermission()
+  - 앱에 특정권한이 부여됬는지 확인합니다.
+  - 앱에 권한이 있는지에 따라 PERMISSION_GRANTED 또는 PERMISSION_DENIED를 반환합니다.
+  - https://developer.android.com/training/permissions/requesting?hl=ko
+
+## Source code 
+
+```
+ private void requsetPermissions(){
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)!=PackageManager.PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},REQUST_ALL_PERMISSION);
+
+    }
+```
+
+# onRequestPermissionResult()메소드
+
+## description 
+
+ - requestPermissions메소드의 콜백메소드
+   - https://developer.android.com/reference/androidx/core/app/ActivityCompat.OnRequestPermissionsResultCallback?hl=ko#onRequestPermissionsResult(int,%20java.lang.String[],%20int[])
+            
+## parameter
+
+- int permsRequestCode 
+  - 전달된 요청 코드
+
+- @NonNull String[] permissions
+  - 요청 된 권한
+
+- @NonNull int[] grandResults
+  - 해당 권한에 대한 부여 결과
+  - https://developer.android.com/reference/androidx/core/app/ActivityCompat.OnRequestPermissionsResultCallback?hl=ko
+
+## return value 
+
+- type
+  - void
+
+- value
+  - 없음
+    
+## Dependence function
+
+- ActivityCompat.shouldShowRequestPermissionRationale
+  - 권한을 요청하기 전에 근거가있는 UI를 표시해야하는지 여부를 가져옵니다.
+  - 권한 요청을 한 번 거절하면 메서드 반환 값이 true가 됩니다.
+  - https://developer.android.com/reference/androidx/core/app/ActivityCompat?hl=ko#shouldShowRequestPermissionRationale(android.app.Activity,%20java.lang.String)
+  - https://academy.realm.io/kr/posts/android-marshmellow-permission/
+  
+## Source code
+
+```
+ @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case REQUST_ALL_PERMISSION:
+                for(int grantResult : grantResults){
+                    if(grantResult == PackageManager.PERMISSION_DENIED){
+                        Toast.makeText(this,"아직 승인받지 않았습니다.",Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(this,"승인이 허가되어 있습니다.",Toast.LENGTH_LONG).show();
+                    }
+                }
+        }
+    }
+```
+
+# initializeWebView()메소드
+
+- https://github.com/jun-seok816/HybridApp 참조
+
+# getFileNameForPicture() 메소드
+
+## description 
+
+- 사진파일의 이름을 현재시간 jpg로 설정합니다.
+
+## Parameter
+
+- 없음
+    
+## Return 
+
+ - type : String
+ 
+ - value : 없음
+ 
+## Dependence function
+
+- System.currentTimeMillis();
+  - 현재시간을 반환합니다.
+  - https://developer.android.com/reference/java/lang/System#currentTimeMillis()
+  
+## Source code
+
+```
+   private String getFileNameForPicture() {
+        Long tsLong = System.currentTimeMillis() / 1000;
+        String ts = tsLong.toString() + ".jpg";
+        return ts;
+    }
+```
+
+
+# captureImage() 메소드
+
+## description 
+
+- 사진파일의 이름을 현재시간 jpg로 설정합니다.
+
+## Parameter
+
+- 없음
+    
+## Return 
+
+ - type : void
+ 
+ - value : 없음
+ 
+## New File()
+
+-  이미지를 저장할 파일을 만듭니다
+ 
+## Dependence function
+
+- gettAbsolutePath()
+  - 이 파일의 절대경로를 반환합니다
+  - https://developer.android.com/reference/java/io/File#getAbsolutePath()
+  
+- cameraIntent.putExtra()
+  - 인텐트에 확장 데이터를 추가합니다
+  - https://developer.android.com/reference/android/content/Intent#putExtra(java.lang.String,%20boolean)
+  
+- startActivityForResult()
+  - onActivityResult메소드와 콜백에서 액티비티의 결과를 별도의 Intent객체로 수신하는 함수
+  - https://developer.android.com/reference/android/app/Activity?hl=ko#startActivityForResult(android.content.Intent,%20int
+  
+## Source code
+
+```
+public void captureImage() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        //Create the file for storing the image
+        File directory = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                + "/WebviewCameraDemo/");
+        // Create file directory if it doesn't exist
+        if (!directory.exists()) {
+            boolean isDirectoryCreated = directory.mkdir();
+        }
+
+        File pictureFile = new File(directory, getFileNameForPicture());
+        try {
+            if (!pictureFile.exists()) {
+                pictureFile.createNewFile();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        msCurrentCaptureFilePath = pictureFile.getAbsolutePath();
+
+
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(pictureFile));
+        startActivityForResult(cameraIntent, Constants.REQ_CAMERA);
+}
+```
+  
+# OnActivityResult메소드
+
+
+## description 
+
+- startActivityForResult메소드의 콜백 메소드
+  - https://developer.android.com/reference/android/app/Activity?hl=ko#onActivityResult(int,%20int,%20android.content.Intent)
+            
+## parameter
+
+- requestCode: 대화상자 액티비티랑 MainActivity를 구별하기 위한 코드
+
+- resultCode: 어떠한 결과코드를 주었는지에 대한 변수
+
+- Intent data: 액티비티에서 보낸 결과 데이터가 들어가있는 부분
+  - https://developer.android.com/reference/android/app/Activity?hl=ko#onActivityResult(int,%20int,%20android.content.Intent)
+    
+## return value
+
+- type: void
+
+- value:없음
+
+## new FileOutputStream
+
+- 지정된 이름으로 파일에 쓸 파일 output Stream을 만든다
+- 주어진 File 객체가 가리키는 파일을 쓰기 위한 객체를 생성.
+  - https://developer.android.com/reference/java/io/FileOutputStream#FileOutputStream(java.lang.String)
+  - http://blog.naver.com/PostView.nhn?blogId=eunjin6132&logNo=220888811967&categoryNo=38&parentCategoryNo=0&viewDate=&currentPage=1&postListTopCurrentPage=1&from=search
+
+## Case 
+
+- requestCode가 Constants.REQ_CAMERA일때
+  - 리소스파일을 비트맵으로 바꿔서 jpeg파일로 압축
+  
+- requestCode가 Constants.REQ_GALLERY일때
+  - 
+
+## Dependence function
+
+- Util.convertImageFileToBitmap()
+  - 리소스 파일을 비트맵 으로 변환
+  - Util 클래스 참조
+- viewBitmap.compress()
+  - Bitmap.CompressFormat: 비트맵을 JPEG형식으로 압축합니다
+  - 압축 된 버전의 비트 맵을 지정된 출력 스트림에 씁니다
+  - https://developer.android.com/reference/android/graphics/Bitmap#compress(android.graphics.Bitmap.CompressFormat,%20int,%20java.io.OutputStream)
+- Stream
+  - 순차 및 병렬 집계 작업을 지원하는 일련의 요소입니다.
+  - https://developer.android.com/reference/java/util/stream/Stream
+- outStream.close();
+  - 파일 출력 스트림을 닫고이 스트림과 관련된 모든 시스템 리소스를 해제합니다. 
+  - https://developer.android.com/reference/java/io/FileOutputStream#close()
+
+- alertClickImages.setMessage()
+  - 대화상자의 메세지
+  - https://developer.android.com/reference/android/app/AlertDialog.Builder#setMessage(int)
+
+- alertClickImages.setPositiveButton()
+  - 대화상자의 OK버튼을 눌렀을때 일어나는 함수
+
+- alertClickImages.setPositiveButton
+  - 대화상자의 No 버튼을 눌렀을때 일어나는 함수
+  - https://developer.android.com/reference/android/app/AlertDialog.Builder#setPositiveButton(int,%20android.content.DialogInterface.OnClickListener)
+  
+  
+
+
+
+
+
 
