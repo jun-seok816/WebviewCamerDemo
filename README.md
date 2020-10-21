@@ -275,5 +275,63 @@ public GalleryRecyclerViewAdapter(Context context) {
         galleryActivity = (GalleryActivity)context;
     }
 ```
-  
 
+# onCreateViewHolder 메소드
+
+## Description 
+
+- Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to represent an item.
+- View들이 정리된 리스트에서 각 View를 보관하는 객체를 리턴합니다 
+- https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView.Adapter#onCreateViewHolder(android.view.ViewGroup,%20int)
+
+## Parameter
+
+- ViewGrop parent
+  - View들의 그룹
+- int viewType
+
+## Return 
+
+- type : GalleryRecyclerViewAdapter.ItemHolder
+
+- value :ItemHolder
+
+## Dependence function
+
+- layoutInflater.inflate
+  - 지정된 Xml 요소들을 객체화시킵니다.
+  - https://developer.android.com/reference/android/view/LayoutInflater#inflate(int,%20android.view.ViewGroup)
+  
+## Source code
+
+```
+@Override
+    public GalleryRecyclerViewAdapter.ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        CardView itemCardView = (CardView)layoutInflater.inflate(R.layout.layout_cardview, parent, false);
+        return new ItemHolder(itemCardView, this);
+    }
+```
+
+# onBindViewHolder메소드
+
+## Description 
+
+
+## Parameter
+
+- GalleryRecyclerViewAdapter.ItemHolder holder
+  - 리스트들의 데이터들을 보유하고있는 변수
+- int position
+  - 이미지의 위치
+  
+## Retrun
+ - type : void
+ 
+ - value : 없음
+ 
+## Dependence function
+
+- holder.setItemUri
+
+
+  
