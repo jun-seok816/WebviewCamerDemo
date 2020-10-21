@@ -932,7 +932,7 @@ public void captureImage() {
   - 리소스파일을 비트맵으로 바꿔서 jpeg파일로 압축
   
 - requestCode가 Constants.REQ_GALLERY일때
-  - 
+  - Jpeg파일을 html 사이트에 업로드한다.
 
 ## Dependence function
 
@@ -947,7 +947,7 @@ public void captureImage() {
   - 순차 및 병렬 집계 작업을 지원하는 일련의 요소입니다.
   - https://developer.android.com/reference/java/util/stream/Stream
 - outStream.close();
-  - 파일 출력 스트림을 닫고이 스트림과 관련된 모든 시스템 리소스를 해제합니다. 
+  - 파일 출력 스트림을 닫고 스트림과 관련된 모든 시스템 리소스를 해제합니다. 
   - https://developer.android.com/reference/java/io/FileOutputStream#close()
 
 - alertClickImages.setMessage()
@@ -957,9 +957,54 @@ public void captureImage() {
 - alertClickImages.setPositiveButton()
   - 대화상자의 OK버튼을 눌렀을때 일어나는 함수
 
-- alertClickImages.setPositiveButton
+- alertClickImages.setPositiveButton()
   - 대화상자의 No 버튼을 눌렀을때 일어나는 함수
   - https://developer.android.com/reference/android/app/AlertDialog.Builder#setPositiveButton(int,%20android.content.DialogInterface.OnClickListener)
+
+- load.url()
+  - loadurl("javascript:(function(){}문구가 안에 있는 Javascript 코드를 실행시킨다.
+  
+## loadURL()메소드
+
+## description 
+
+- 안드로이드 내부에 저장한 html 파일을 웹뷰에 띄운다
+
+## Parameter
+
+- 없음
+    
+## Return 
+
+ - type : String
+ 
+ - value : 없음
+ 
+## Source code
+
+```
+mWebView.loadUrl("file:///android_asset/index.html");
+```
+
+# WebVCamBridgeInterface 클래스
+
+## Source code
+
+```
+@JavascriptInterface
+        public void takePicture() {
+            captureImage();
+
+        }
+
+
+        @JavascriptInterface
+        public void showPictures() {
+            Intent intent = new Intent(LandingActivity.this, GalleryActivity.class);
+            startActivityForResult(intent, Constants.REQ_GALLERY);
+        }
+```
+
   
   
 
