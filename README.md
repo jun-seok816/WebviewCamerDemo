@@ -70,7 +70,7 @@ private void setUpload() {
 ## Constructor
 
 - AlertDialog.Builder
-  - 기본 경고 대화 상자 테마를 사용하는 경고 대화 상자의 빌더를 만듭니다.
+  - 기본 경고 대화 상자 테마를 사용하는 경고 대화 상자를 만듭니다.
   - https://developer.android.com/reference/android/app/AlertDialog.Builder
 
 ## Dependence function
