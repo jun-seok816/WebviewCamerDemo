@@ -626,8 +626,8 @@ public void add(int location, Uri iUri) {
 ## Parameter
   
 - CardView cardView
-  - 둥근 모서리 배경과 그림자가있는 FrameLayout입니다.
-  - https://developer.android.com/reference/androidx/cardview/widget/CardView?hl=en
+  - 데이터를 비슷한 스타일의 컨테이너에 표시하기 위해 제공되는 api
+  - https://developer.android.com/guide/topics/ui/layout/cardview?hl=ko#AddDependency
 
 - GalleryRecyclerViewAdapter parent
 
@@ -659,7 +659,7 @@ public void add(int location, Uri iUri) {
 
 ## Description 
 
-- 리스트 itemuri 배열을 String 문자열 형태로 초기화 시킵니다.
+- String itemUri를 초기화시킵니다.
 
 ## Parameter
   
@@ -683,7 +683,7 @@ public void add(int location, Uri iUri) {
 
 ## Description 
 
-- 문자열로 변환한 itemUri배열 리턴
+- 문자열로 변환한 Stirng itemUri 리턴
 
 ## Parameter
   
