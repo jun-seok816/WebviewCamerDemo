@@ -55,7 +55,7 @@ private void setUpload() {
 
 ## Description 
 
- - 삭제할 사진을 설정합니다.
+-삭제할 사진을설정합니다.
 
 ## Parameter
 
