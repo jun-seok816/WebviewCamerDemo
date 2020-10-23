@@ -401,6 +401,14 @@ public GalleryRecyclerViewAdapter(Context context) {
 - holder.setImageView
   - 받은 데이터를 참조하여 이미지를 지정한 위치에 위치시킨다.
   
+- itemUri.get()
+  - 리스트의 지정된 위치에있는 요소를 반환합니다.
+  - https://developer.android.com/reference/java/util/ArrayList#get(int)
+  
+- targetUri.getPath
+  - 디코딩 된 경로를 가져옵니다.
+  - https://developer.android.com/reference/android/net/Uri#getPath()
+  
 ## Source code
 
 ```
