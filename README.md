@@ -264,7 +264,8 @@ public void showNoImagesText() {
 ## Dependence function
 
 - item.getItemUri()
-  - 아래에 설명 참조
+  - 데이터의 디코딩된 경로를 문자열로 출력합니다.
+  
 - Util.convertImageFileToBitmap() 
   - Util클래스설명 참조
 - imageView.setImageBitmap()  
@@ -387,7 +388,7 @@ public GalleryRecyclerViewAdapter(Context context) {
   - 리스트들의 데이터들을 보유하고있는 변수
   
 - int position
-  - 어댑터의 데이터 세트 내 item의 위치입니다.
+  - 어댑터의 데이터 세트 내 item(표시할 데이터)의 위치입니다.
   - https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView.Adapter#onBindViewHolder(VH,%20int)
   
 ## Retrun
@@ -398,7 +399,7 @@ public GalleryRecyclerViewAdapter(Context context) {
 ## Dependence function
 
 - holder.setItemUri
-  - 아래의 설명참조
+  - 데이터의 디코딩된 경로를 itemUri변수에 초기화
 
 - holder.setImageView
   - 받은 데이터를 참조하여 이미지를 지정한 위치에 위치시킨다.
@@ -408,7 +409,7 @@ public GalleryRecyclerViewAdapter(Context context) {
   - https://developer.android.com/reference/java/util/ArrayList#get(int)
   
 - targetUri.getPath
-  - 디코딩 된 경로를 가져옵니다.
+  - 데이터의 위치가 디코딩 된 경로를 가져옵니다.
   - https://developer.android.com/reference/android/net/Uri#getPath()
   
 ## Source code
@@ -495,7 +496,7 @@ public void setOnItemClickListener(OnItemClickListener listener) {
 
 ## Description 
 
-- AdapterView의 항목과 함께 호출 될 콜백이 클릭되었거나 콜백이 설정되지 않은 경우 null입니다.
+- AdapterView의 항목과 함께 호출 될 콜백이 클릭되었거나 콜백이 설정되지 않은 경우 null값을 리턴하는 
   - 콜백이 호출할때 발생하는 값을 리턴합니다.
   - https://developer.android.com/reference/android/widget/AdapterView#getOnItemClickListener()
   
