@@ -170,7 +170,7 @@ private void setUpload() {
   
 - Adapter란
   - 두 개의 상이한 부분을 연결시키는 데 사용하는 장치를 의미한다.
-  - 데이터 항목들의 엑세스를 제공합니다.
+  - View와 그 View에 올릴 Data를 연결하는 일종의 Bridge 입니다.
   - http://blog.naver.com/PostView.nhn?blogId=kookh1&logNo=120170877682
   - https://developer.android.com/reference/android/widget/Adapter
   
