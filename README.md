@@ -385,8 +385,10 @@ public GalleryRecyclerViewAdapter(Context context) {
 
 - GalleryRecyclerViewAdapter.ItemHolder holder
   - 리스트들의 데이터들을 보유하고있는 변수
+  
 - int position
-  - 이미지의 위치
+  - 어댑터의 데이터 세트 내 item의 위치입니다.
+  - https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView.Adapter#onBindViewHolder(VH,%20int)
   
 ## Retrun
 - type : void
