@@ -135,7 +135,7 @@ private void setUpload() {
 
 ## Description 
 
- - 데이터항목들을 지정한 결로명의 파일로 저장합니다.
+ - 데이터항목들을 지정한 경로명의 파일로 저장합니다.
 
 ## Parameter
 
@@ -166,7 +166,8 @@ private void setUpload() {
 - recyclerViewAdapter.getItemCount()
   - Adapter의 총 항목 수를 리턴합니다.
   - https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView.Adapter#getItemCount()
-  - Adapter란
+  
+- Adapter란
   - 두 개의 상이한 부분을 연결시키는 데 사용하는 장치를 의미한다.
   - 데이터 항목들의 엑세스를 제공합니다.
   - http://blog.naver.com/PostView.nhn?blogId=kookh1&logNo=120170877682
