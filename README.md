@@ -1075,6 +1075,7 @@ mWebView.loadUrl("file:///android_asset/index.html");
 ## description 
 
 - Bitmap의 Option을 설정합니다.
+- 받은 파일 경로를 비트 맵으로 디코딩합니다.
 
 ## Parameter
 
