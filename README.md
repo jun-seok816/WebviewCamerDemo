@@ -252,6 +252,9 @@ public void showNoImagesText() {
   - 어댑터에서 view의 위치입니다.
   - https://developer.android.com/reference/android/widget/AdapterView.OnItemClickListener#public-methods_1
 
+- View는 대화 형 UI 구성 요소 (버튼, 텍스트 필드 등)를 만드는 데 사용되는 위젯 의 기본 클래스입니다 .
+  - https://developer.android.com/reference/android/view/View
+
 ## Return 
 
  - type : void
