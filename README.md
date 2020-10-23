@@ -161,7 +161,7 @@ private void setUpload() {
   
 - Uri.fromeFile()
   - 파일에서 Uri를 만듭니다.
-  - "file:///tmp/android.txt"
+  - ex) "file:///tmp/android.txt"
   - https://developer.android.com/reference/android/net/Uri#fromFile(java.io.File)
 
 - recyclerViewAdapter.getItemCount()
