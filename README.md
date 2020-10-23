@@ -156,7 +156,7 @@ private void setUpload() {
 ## Dependence function
 
 - targetDirector.listFiles()
-  - targetDirector의 디렉토리의 파일을 표시하는 추상 경로명의 배열을 리턴합니다.
+  - targetDirector의 파일을 표시하는 추상 경로명의 배열을 리턴합니다.
   - https://developer.android.com/reference/java/io/File#listFiles()
   
 - Uri.fromeFile()
