@@ -346,7 +346,13 @@ public GalleryRecyclerViewAdapter(Context context) {
 
 - Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to represent an item.
 - View들이 정리된 리스트에서 각 View를 보관하는 객체를 리턴합니다 
+- ViewHolder를 생성하고 View를 붙여줌
 - https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView.Adapter#onCreateViewHolder(android.view.ViewGroup,%20int)
+- ViewHolder란 
+  - inflate를 최소화 하기 위해서 뷰를 재활용 하는데, 이 때 각 뷰의 내용을 업데이트 하기 위해 findViewById 를 매번 호출 해야합니다. 이로 인해 성능저하가 일어남에 따라 ItemView의 각 요소를 바로 엑세스 할 수 있도록 저장해두고 사용하기 위한 객체입니다.
+ - https://developside.tistory.com/88
+ - 
+  
 
 ## Parameter
 
