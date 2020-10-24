@@ -245,7 +245,7 @@ public void showNoImagesText() {
 
 ## Parameter
 
-- AdapterView
+- ItemHolder item
   - 클릭이 발생한 AdapterView입니다.
   
 - position  
@@ -318,7 +318,7 @@ public void showNoImagesText() {
 - LayoutInflater
   - XML 파일을 해당 View 객체 로 인스턴스화 합니다. 
 
-- LayoutInflater.from(contxt)
+- LayoutInflater.from(context)
   - 지정된 context에서 LayoutInflater를 가져옵니다.
   - https://developer.android.com/reference/android/view/LayoutInflater#from(android.content.Context)
   
@@ -350,8 +350,8 @@ public GalleryRecyclerViewAdapter(Context context) {
 - https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView.Adapter#onCreateViewHolder(android.view.ViewGroup,%20int)
 - ViewHolder란 
   - inflate를 최소화 하기 위해서 뷰를 재활용 하는데, 이 때 각 뷰의 내용을 업데이트 하기 위해 findViewById 를 매번 호출 해야합니다. 이로 인해 성능저하가 일어남에 따라 ItemView의 각 요소를 바로 엑세스 할 수 있도록 저장해두고 사용하기 위한 객체입니다.
- - https://developside.tistory.com/88
- - 
+ - https://developside.tistory.com/88 
+- inflate? : xml 로 쓰여있는 View의 정의를 실제 VIew 객체로 만드는 것을 말함. 
   
 
 ## Parameter
@@ -369,7 +369,7 @@ public GalleryRecyclerViewAdapter(Context context) {
 ## Dependence function
 
 - layoutInflater.inflate
-  - 지정된 Xml 요소들을 객체화시킵니다.
+  - 지정된 Xml 요소들을 view 객체화시킵니다.
   - https://developer.android.com/reference/android/view/LayoutInflater#inflate(int,%20android.view.ViewGroup)
   
 ## Source code
@@ -386,6 +386,10 @@ public GalleryRecyclerViewAdapter(Context context) {
 
 ## Description 
 
+- 재활용 되는 뷰가 호출하여 실행되는 메소드, 뷰 홀더를 전달하고 어댑터는 position의 데이터를 결합시킵니다. 
+  - https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView.Adapter#onBindViewHolder(VH,%20int)
+  - https://dev-troh.tistory.com/139
+- OnCreateViewHolder에서 ViewHolder생성 OnBindViewHolder에서 ViewHolder내용 변경.( 내가 이해한거 틀릴 수도?) 
 - 리스트에서 데이터를 참조하여 받아온 이미지의 위치설정
 
 ## Parameter
@@ -461,7 +465,7 @@ public GalleryRecyclerViewAdapter(Context context) {
   - https://mine-it-record.tistory.com/126
 
 - 컬렉션프레임워크란
-  - 다수의 데이터를 쉽고 효과적으로 처리할 수 있는 표준화된 방법
+  - 다수의 데이터를 쉽고 효과적으로 처리할 수 있는 표준화된  방법
   
 ## source code
 
@@ -482,7 +486,7 @@ public GalleryRecyclerViewAdapter(Context context) {
 ## Parameter
 
 - OnItemClickListener listener
-  - The callback that will be invoked. This value may be null.
+  - The callback that will be invoked(호출될). This value may be null.
   - https://developer.android.com/reference/android/widget/AdapterView#setOnItemClickListener(android.widget.AdapterView.OnItemClickListener)
   
 ## Retrun
@@ -502,7 +506,7 @@ public void setOnItemClickListener(OnItemClickListener listener) {
 
 ## Description 
 
-- AdapterView의 항목과 함께 호출 될 콜백이 클릭되었거나 콜백이 설정되지 않은 경우 null값을 리턴하는 
+- AdapterView의 항목과 함께 호출 될 콜백이 클릭되었거나 콜백이 설정되지 않은 경우 null값을 리턴한다
   - 콜백이 호출할때 발생하는 값을 리턴합니다.
   - https://developer.android.com/reference/android/widget/AdapterView#getOnItemClickListener()
   
