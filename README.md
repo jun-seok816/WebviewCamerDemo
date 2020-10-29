@@ -949,6 +949,10 @@ public void setImageView(Bitmap bitmap){
   - onActivityResult메소드와 콜백에서 액티비티의 결과를 별도의 Intent객체로 수신하는 함수
   - https://developer.android.com/reference/android/app/Activity?hl=ko#startActivityForResult(android.content.Intent,%20int
   
+- MediaStore.EXTRA_OUTPUT
+  - 요청 된 이미지 또는 비디오를 저장하는 데 사용할 콘텐츠 확인자 Uri를 나타냄
+  - https://developer.android.com/reference/android/provider/MediaStore#EXTRA_OUTPUT
+  
 ## Source code
 
 ```
