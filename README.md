@@ -1172,7 +1172,7 @@ public static Bitmap convertImageFileToBitmap(String filePath, int nWidth, int n
 
 ## description 
 
-- 이미지의 원시 높이 및 너비를 구함
+- 이미지의 원시 높이 및 너비를 구하여 축소 버전의 이미지를 제공합니다.
 
 ## Parameter
 
