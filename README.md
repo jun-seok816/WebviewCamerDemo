@@ -1053,7 +1053,90 @@ public void captureImage() {
 - load.url()
   - loadurl("javascript:(function(){}문구가 안에 있는 Javascript 코드를 실행시킨다.
   
-## loadURL()메소드
+
+## Source code
+
+```
+ public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("@@@",   "LandingActivity onActivityResult() 호출");
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case Constants.REQ_CAMERA:
+                if (resultCode == Activity.RESULT_OK) {
+
+                    Bitmap viewBitmap = null;
+                    try {
+                        viewBitmap = Util.convertImageFileToBitmap(msCurrentCaptureFilePath, Constants.IMAGE_COMPRESSED_WIDTH, Constants.IMAGE_COMPRESSED_HEIGHT);
+                        OutputStream outStream = new FileOutputStream(msCurrentCaptureFilePath);
+                        viewBitmap.compress(Bitmap.CompressFormat.JPEG, 50, outStream);
+                        outStream.close();
+                        outStream = null;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                    msCurrentCaptureFilePath = "";
+
+                } else {
+                    File file = new File(msCurrentCaptureFilePath);
+                    boolean isDeleted = file.delete();
+
+                }
+                AlertDialog.Builder alertClickImages = new AlertDialog.Builder(this);
+                alertClickImages.setMessage("Click More Images?");
+                alertClickImages.setCancelable(true);
+
+                alertClickImages.setPositiveButton(
+                        "Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                captureImage();
+                            }
+                        });
+
+                alertClickImages.setNegativeButton(
+                        "No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                alertClickImages.show();
+                break;
+            case Constants.REQ_GALLERY:
+                if (resultCode == Constants.RESULT_GALLERY_UPLOAD) {
+                    String imagePath = data.getStringExtra(Constants.PATH_OF_IMAGE_TO_UPLOAD);
+
+
+                    arrayListOfImagePaths.add(imagePath);
+
+
+                    File imageFile = new File(imagePath);
+                    Bitmap bitmap = Util.convertImageFileToBitmap(imageFile.getAbsolutePath(), Constants.IMAGE_COMPRESSED_WIDTH, Constants.IMAGE_COMPRESSED_HEIGHT);
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+                    byte[] bytes = stream.toByteArray();
+
+
+                    final String imgBase64String = Base64.encodeToString(bytes, Base64.NO_WRAP);
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mWebView.loadUrl("javascript:imageData('" + imgBase64String + "')");
+                        }
+                    });
+                }
+                break;
+        }
+    }
+```
+  
+# loadURL()메소드
 
 ## description 
 
