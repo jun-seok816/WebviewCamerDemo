@@ -1092,6 +1092,12 @@ mWebView.loadUrl("file:///android_asset/index.html");
             Intent intent = new Intent(LandingActivity.this, GalleryActivity.class);
             startActivityForResult(intent, Constants.REQ_GALLERY);
         }
+        
+    function imageData(data){
+    document.getElementById('displayImage').setAttribute( 'src', 'data:image/png;base64,'+data );
+    if(typeof AndroidDevice !== "undefined"){
+    }
+  }
 ```
 
 # Util 클래스
