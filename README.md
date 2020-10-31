@@ -241,6 +241,7 @@ public void showNoImagesText() {
 ## Description 
 
 - AdapterView의 항목을 클릭했을 때 호출되는 콜백 메서드입니다.
+- 클릭한 항목을 화면에 띄움
   - https://developer.android.com/reference/android/widget/AdapterView
 
 ## Parameter
